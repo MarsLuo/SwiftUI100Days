@@ -10,17 +10,10 @@ import SwiftUI
 struct ContentView: View {
     let students = ["Harry", "Hermione", "Ron"]
     @State private var selectedStudent = 0
-
+    
     
     var body: some View {
-        VStack{
-            Picker("Select your students", selection: $selectedStudent) {
-                ForEach(0..<students.count) {
-                    Text(students[$0])
-                }
-            }
-            Text("You chose: Student # \(students[selectedStudent])")
-        }
+        Text("Hello World")
     }
 }
 
