@@ -17,27 +17,29 @@ struct ContentView: View {
     let speedUnits:[String:UnitSpeed] = ["米/秒":UnitSpeed.metersPerSecond, "千米/小时": UnitSpeed.kilometersPerHour, "英里/小时": UnitSpeed.milesPerHour, "节": UnitSpeed.knots]
     
     var body: some View {
-        Form{
-            Section(header: Text("请输入要转换的值")) {
-                TextField("输入值", text: $inputValue)
-            }
-            Section(header: Text("转换单位选择")) {
-                Text("转换单位")
-                Picker("Value", selection: $fromUnit) {
-                    ForEach(speedUnits.sorted(by: {$0.key > $1.key}), id: \.key) { item in
-                        Text("\(item.key)").tag(item.value)
-                    }
-                }.pickerStyle(SegmentedPickerStyle())
-                Text("目标单位")
-                Picker("Value", selection: $toUnit) {
-                    ForEach(speedUnits.sorted(by: {$0.key > $1.key}), id: \.key) { item in
-                        Text("\(item.key)").tag(item.value)
-                    }
-                }.pickerStyle(SegmentedPickerStyle())
-            }.groupBoxStyle(DefaultGroupBoxStyle())
-            Section(header: Text("")) {
-                Text("\(outputValue, specifier: "%.2f")")
-            }
+        NavigationView{
+            Form{
+                Section(header: Text("请输入要转换的值")) {
+                    TextField("输入值", text: $inputValue)
+                }
+                Section(header: Text("转换单位选择")) {
+                    Text("转换单位")
+                    Picker("Value", selection: $fromUnit) {
+                        ForEach(speedUnits.sorted(by: {$0.key > $1.key}), id: \.key) { item in
+                            Text("\(item.key)").tag(item.value)
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
+                    Text("目标单位")
+                    Picker("Value", selection: $toUnit) {
+                        ForEach(speedUnits.sorted(by: {$0.key > $1.key}), id: \.key) { item in
+                            Text("\(item.key)").tag(item.value)
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
+                }.groupBoxStyle(DefaultGroupBoxStyle())
+                Section(header: Text("")) {
+                    Text("\(outputValue, specifier: "%.2f")")
+                }
+            }.navigationTitle("速度单位转换器")
         }
     }
     
