@@ -14,8 +14,10 @@ struct ContentView: View {
     
     @State private var showingScore = false
     @State private var scoreTitle = ""
-
     
+    @State private var wrongMessage = ""
+    @State private var score = 0
+
     var body: some View {
         ZStack{
             LinearGradient(gradient: Gradient(colors: [.blue, .gray]), startPoint: .top, endPoint: .bottom)
@@ -44,7 +46,7 @@ struct ContentView: View {
                 Spacer()
             }
         }.alert(isPresented: $showingScore) {
-            Alert(title: Text(scoreTitle), message: Text("Your score is ???"), dismissButton: .default(Text("Continue")) {
+            Alert(title: Text(scoreTitle), message: Text("Your Score Is \(score)\(wrongMessage)"), dismissButton: .default(Text("Continue")) {
                 self.askQuestion()
             })
         }
@@ -53,8 +55,11 @@ struct ContentView: View {
     func flagTapped(_ number: Int) {
         if number == correctAnswer {
             scoreTitle = "Correct"
+            wrongMessage = ""
+            self.score += 1
         } else {
             scoreTitle = "Wrong"
+            wrongMessage = ", correct answer is \(correctAnswer+1)th flag"
         }
 
         showingScore = true
