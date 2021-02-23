@@ -37,7 +37,7 @@ struct ContentView: View {
                     Text("$\(totalPerPerson, specifier: "%.2f")")
                 }
                 Section(header: Text("Pay Amount")) {
-                    Text("$\(payAmount, specifier: "%.2f")")
+                    Text("$\(payAmount, specifier: "%.2f")").foregroundColor(tipPercentage == 4 ? .red : .black)
                 }
             }.navigationTitle("WeSplit")
         }
