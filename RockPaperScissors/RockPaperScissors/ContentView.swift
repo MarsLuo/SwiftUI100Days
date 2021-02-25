@@ -81,7 +81,7 @@ struct ContentView: View {
     
     func judgeWin(computerInput: GameInput, yourInput: GameInput) {
         // win
-        if GameInput.isWinPair(your: yourInput, computer: computerInput) {
+        if GameInput.isWinPair(your: yourInput, computer: computerInput) == youNeedWin {
             yourPoint += 1
         }
         nextLevel()
