@@ -12,6 +12,12 @@ struct GridStack<Content: View>: View {
     let columns: Int
     let content: (Int, Int) -> Content
     
+    init(rows: Int, columns: Int, @ViewBuilder _ content: @escaping (Int, Int) -> Content) {
+        self.rows = rows
+        self.columns = columns
+        self.content = content
+    }
+    
     var body: some View {
         VStack {
             ForEach(0..<rows, id: \.self) { row in
@@ -25,6 +31,14 @@ struct GridStack<Content: View>: View {
     }
 }
 
+struct ContentView1: View {
+    var body: some View {
+        GridStack(rows: 3, columns: 3) { (row, col) in
+            Text("R\(row)C\(col)")
+            Text("R\(row)C\(col)")
+        }
+    }
+}
 struct Watermark: ViewModifier {
     var text: String
     
@@ -85,6 +99,8 @@ struct ContentView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: true, content: {
             VStack(spacing: 10) {
+                Label("Lightning", systemImage: "bolt.fill")
+                
                 Button("Hello World") {
                     // do nothing
                 }
@@ -111,7 +127,19 @@ struct ContentView: View {
                     .foregroundColor(.red)
                 CapsuleText(text: "Second")
                     .foregroundColor(.yellow)
-                GridStack(rows: 4, columns: 4) { row, col in
+                //                GridStack(rows: 3, columns: 3) { row, col in
+                //                    Text("R\(row)C\(col)")
+                //                }
+                GridStack(rows: 3, columns: 3) { (row, col) in
+                    Text("R\(row)C\(col)")
+                    Text("R\(row)C\(col)")
+                    Text("R\(row)C\(col)")
+                    Text("R\(row)C\(col)")
+                    Text("R\(row)C\(col)")
+                    Text("R\(row)C\(col)")
+                    Text("R\(row)C\(col)")
+                    Text("R\(row)C\(col)")
+                    Text("R\(row)C\(col)")
                     Text("R\(row)C\(col)")
                 }
             }
