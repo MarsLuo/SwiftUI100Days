@@ -29,12 +29,13 @@ struct ContentView: View {
                     Text($0)
                 }
             }
+            .navigationTitle(rootWord)
+            .onAppear(perform:startGame)
+            .alert(isPresented: $showingError) {
+                Alert(title: Text(errorTitle), message: Text(errorMessage), dismissButton: .default(Text("OK")))
+            }
         }
-        .navigationTitle(rootWord)
-        .onAppear(perform:startGame)
-        .alert(isPresented: $showingError) {
-            Alert(title: Text(errorTitle), message: Text(errorMessage), dismissButton: .default(Text("OK")))
-        }
+        
     }
     
     func addNewWord(){
@@ -48,12 +49,12 @@ struct ContentView: View {
             wordError(title: "Word used already", message: "Be more original")
             return
         }
-
+        
         guard isPossible(word: answer) else {
             wordError(title: "Word not recognized", message: "You can't just make them up, you know!")
             return
         }
-
+        
         guard isReal(word: answer) else {
             wordError(title: "Word not possible", message: "That isn't a real word.")
             return
@@ -96,7 +97,7 @@ struct ContentView: View {
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.utf16.count)
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
-
+        
         return misspelledRange.location == NSNotFound
     }
     
